@@ -1,0 +1,36 @@
+Docker
+
+docker build .
+docker build -t node-app-image .
+
+docker image ls
+docker image rm 24abd712f369
+
+docker run -d -name node-app node-app-image
+docker run. -p 3000:3000 -d -name node-app node-app-image
+// Route traffic from outside on port 3000 (left) to docker container on port 3000 (right).
+
+docker ps  - process state
+
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS                                       NAMES
+a6b1818782c0   node-app-image   "docker-entrypoint.s…"   4 seconds ago   Up 2 seconds   0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   node-app
+
+0.0.0.0:3000 - traffic on host machine on 3000.
+
+docker rm node-app -f
+
+docker exec -it node-app bash
+-it : interactive mode
+
+ cat index.js
+// print out content of index.js
+
+Autosync Code update 
+docker run -v /Users/mojubailori/Desktop/Learning/node-docker/:/app  -p 3000:3000 -d --name node-app node-app-image 
+docker run -v $(pwd):/app -p 3000:3000 -d --name node-app node-app-image
+
+// -v $(pwd):/app - bind mount
+// -v $(pwd):/app:ro - make bind mount read-only.
+
+
+docker logs node-app
